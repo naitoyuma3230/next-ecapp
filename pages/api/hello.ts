@@ -2,12 +2,25 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string
+  name: string,
+  price:number
 }
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data[] | undefined >
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  if (req.method!.toLocaleLowerCase() !== 'GET') {
+    return res.status(405).end()
+  }
+  res.status(200).json([
+    {
+      name: "testItem",
+      price: 5000,
+    },
+    {
+      name: "secondItem",
+      price: 6000
+    }
+  ])
 }
