@@ -1,12 +1,12 @@
 import { NextApiRequest,NextApiResponse } from 'next'
 import Head from 'next/head'
-import { Data } from './api/hello';
+import { Data } from './api/products';
 
 export async function getServerSideProps (context: NextApiResponse<Data[] | undefined >) {
   try {
     const host = context.req.headers.host || 'localhost:3000'
     const protocol = /^localhost/.test(host) ? 'http' : 'https' 
-    const products = await fetch(`${protocol}://${host}/api/hello`)
+    const products = await fetch(`${protocol}://${host}/api/products`)
         .then(data => data.json())
         // .then((data)=> console.log(data))
     return {
